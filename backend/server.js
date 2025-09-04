@@ -61,6 +61,10 @@ const limiter = rateLimit({
 
 app.use('/api/', limiter);
 
+// Serve static files from frontend directory
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 // GHL Configuration
 const GHL_CONFIG = {
     apiUrl: process.env.GHL_API_URL || 'https://rest.gohighlevel.com/v1',
@@ -106,6 +110,65 @@ app.get('/api/health-check', (req, res) => {
     };
     
     res.status(200).json(healthStatus);
+});
+
+// Quiz Questions API endpoint
+app.get('/api/questions', (req, res) => {
+    const quizData = {
+        title: "Pure Life Compass Quiz",
+        description: "Discover your path to fulfillment and purpose",
+        questions: [
+            {
+                id: "q1",
+                text: "When facing a major life decision, what guides you most?",
+                type: "multiple_choice",
+                options: [
+                    { value: "a", text: "My heart and intuition" },
+                    { value: "b", text: "Logical analysis and facts" },
+                    { value: "c", text: "What others have done successfully" },
+                    { value: "d", text: "The potential for growth and learning" }
+                ]
+            },
+            {
+                id: "q2", 
+                text: "What energizes you most in your daily life?",
+                type: "multiple_choice",
+                options: [
+                    { value: "a", text: "Creating something new and meaningful" },
+                    { value: "b", text: "Solving complex problems efficiently" },
+                    { value: "c", text: "Helping others achieve their goals" },
+                    { value: "d", text: "Leading and inspiring a team" }
+                ]
+            },
+            {
+                id: "q3",
+                text: "When you imagine your ideal future, you see yourself:",
+                type: "multiple_choice", 
+                options: [
+                    { value: "a", text: "Living authentically and pursuing your passions" },
+                    { value: "b", text: "Building something substantial and lasting" },
+                    { value: "c", text: "Making steady progress toward clear goals" },
+                    { value: "d", text: "Influencing positive change in the world" }
+                ]
+            }
+        ],
+        personalInfo: [
+            {
+                id: "name",
+                label: "Your Name",
+                type: "text",
+                required: true
+            },
+            {
+                id: "email", 
+                label: "Email Address",
+                type: "email",
+                required: true
+            }
+        ]
+    };
+    
+    res.status(200).json(quizData);
 });
 
 // Validation Rules
