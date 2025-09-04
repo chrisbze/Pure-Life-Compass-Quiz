@@ -4,7 +4,8 @@
   "description": "Pure Life Compass Quiz - Full Stack Lead Generation App",
   "main": "backend/server.js",
   "scripts": {
-    "start": "cd backend && npm install && node server.js",
+    "build": "cd backend && npm install",
+    "start": "cd backend && node server.js",
     "dev": "cd backend && npm run dev",
     "install-backend": "cd backend && npm install",
     "test": "cd backend && npm test"
