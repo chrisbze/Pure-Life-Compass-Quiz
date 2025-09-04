@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure Life Compass Quiz - Discover Your Path to Transformation</title>
+    <meta name="description" content="Take the Pure Life Compass Quiz to discover your unique transformation path and unlock personalized strategies for achieving your life goals.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Pure Life Warrior Brand Colors -->
+    <style>
+        :root {
+            /* Pure Life Warrior Brand Colors - Exact Match */
+            --primary-gold: #EAB308;
+            --hover-gold: #FACC15;
+            --primary-black: #000000;
+            --secondary-black: #111827;
+            --primary-white: #FFFFFF;
+            --secondary-text: #D1D5DB;
+            --border-accent: #EAB30840;
+            --card-background: #111827;
+            
+            /* Additional UI Colors */
+            --success-green: #22C55E;
+            --error-red: #EF4444;
+            --warning-orange: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, var(--primary-black), var(--secondary-black), var(--primary-black));
+            color: var(--primary-white);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: var(--card-background);
+            border-radius: 16px;
+            border: 2px solid var(--border-accent);
+            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .header .description {
+            font-size: 1rem;
+            color: var(--secondary-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Email Capture Styling */
+        .email-capture {
+            background: var(--card-background);
+            border-radius: 16px;
+            border: 2px solid var(--border-accent);
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.1);
+        }
+
+        .email-capture h3 {
+            color: var(--primary-gold);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .email-capture p {
+            color: var(--secondary-text);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .capture-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            color: var(--primary-white);
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .form-input {
+            padding: 15px 20px;
+            border: 2px solid var(--border-accent);
+            border-radius: 12px;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.2);
+            background: var(--secondary-black);
+        }
+
+        .form-input::placeholder {
+            color: var(--secondary-text);
+        }
+
+        /* Button Styling */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary-gold);
+            color: var(--primary-black);
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--hover-gold);
+            box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            display: none;
+            background: var(--card-background);
+            border-radius: 16px;
+            border: 2px solid var(--border-accent);
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.1);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-text {
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--primary-black);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-gold), var(--hover-gold));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* Question Styling */
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-title {
+            color: var(--primary-white);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .question-section {
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        /* Answer Options */
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .answer-option {
+            padding: 20px;
+            background: var(--primary-black);
+            border: 2px solid var(--border-accent);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .answer-option:hover {
+            border-color: var(--primary-gold);
+            background: var(--secondary-black);
+            transform: translateX(5px);
+        }
+
+        .answer-option.selected {
+            border-color: var(--primary-gold);
+            background: var(--secondary-black);
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+        }
+
+        .answer-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-accent);
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .answer-option.selected .answer-radio {
+            border-color: var(--primary-gold);
+        }
+
+        .answer-option.selected .answer-radio::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+        .answer-text {
+            color: var(--primary-white);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Navigation Buttons */
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary-text);
+            border: 2px solid var(--border-accent);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+        }
+
+        /* Results Section */
+        .results-container {
+            display: none;
+            background: var(--card-background);
+            border-radius: 16px;
+            border: 2px solid var(--border-accent);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(234, 179, 8, 0.1);
+        }
+
+        .results-header {
+            margin-bottom: 30px;
+        }
+
+        .results-title {
+            color: var(--primary-gold);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .results-subtitle {
+            color: var(--secondary-text);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            background: var(--primary-black);
+            border: 2px solid var(--primary-gold);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .score-number {
+            color: var(--primary-gold);
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .persona-result {
+            background: var(--primary-black);
+            border: 2px solid var(--border-accent);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .persona-title {
+            color: var(--primary-gold);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .persona-description {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Section Scores */
+        .section-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-score {
+            background: var(--primary-black);
+            border: 2px solid var(--border-accent);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .section-score-number {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .section-score-label {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            text-transform: capitalize;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-gold), var(--hover-gold));
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            color: var(--primary-black);
+        }
+
+        .cta-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .cta-description {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .btn-cta {
+            background: var(--primary-black);
+            color: var(--primary-gold);
+            border: 2px solid var(--primary-black);
+        }
+
+        .btn-cta:hover {
+            background: var(--secondary-black);
+            border-color: var(--secondary-black);
+        }
+
+        /* Social Sharing */
+        .social-sharing {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border-accent);
+        }
+
+        .social-title {
+            color: var(--primary-white);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-btn.facebook {
+            background: #1877F2;
+            color: white;
+        }
+
+        .social-btn.twitter {
+            background: #1DA1F2;
+            color: white;
+        }
+
+        .social-btn.linkedin {
+            background: #0A66C2;
+            color: white;
+        }
+
+        .social-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-accent);
+            border-top: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error States */
+        .error-message {
+            background: var(--error-red);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .success-message {
+            background: var(--success-green);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1rem;
+            }
+            
+            .quiz-container,
+            .email-capture,
+            .results-container {
+                padding: 25px 20px;
+            }
+            
+            .capture-form {
+                max-width: 100%;
+            }
+            
+            .quiz-navigation {
+                flex-direction: column;
+            }
+            
+            .section-scores {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .results-title {
+                font-size: 1.8rem;
+            }
+            
+            .score-number {
+                font-size: 2.5rem;
+            }
+            
+            .section-scores {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus States */
+        .form-input:focus,
+        .btn:focus,
+        .answer-option:focus {
+            outline: 3px solid var(--primary-gold);
+            outline-offset: 2px;
+        }
+
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Pure Life Compass Quiz</h1>
+            <p class="subtitle">Discover Your Unique Path to Transformation</p>
+            <p class="description">
+                Take this comprehensive assessment to unlock personalized strategies for achieving your life goals.
+                Get insights into your strengths and discover your next steps toward the life you've always wanted.
+            </p>
+        </header>
+
+        <!-- Email Capture Form -->
+        <section class="email-capture" id="emailCapture">
+            <h3>Get Your Personalized Results</h3>
+            <p>Enter your information below to receive your detailed Pure Life Compass assessment and personalized action plan.</p>
+            
+            <form id="emailForm" class="capture-form">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter your first name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Enter your last name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number (Optional)</label>
+                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="Enter your phone number">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="startQuizBtn">
+                    Start Your Assessment
+                </button>
+            </form>
+            
+            <div id="emailError" class="error-message" style="display: none;"></div>
+        </section>
+
+        <!-- Quiz Container -->
+        <section class="quiz-container" id="quizContainer">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span class="progress-text">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">15</span></span>
+                    <span class="progress-text" id="progressPercent">7%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <!-- Question Container -->
+            <div class="question-container">
+                <div class="question-section" id="questionSection">Vision</div>
+                <h2 class="question-title" id="questionTitle">Loading question...</h2>
+                
+                <div class="answer-options" id="answerOptions">
+                    <!-- Answer options will be generated dynamically -->
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="quiz-navigation">
+                <button class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+                <button class="btn btn-primary" id="nextBtn" disabled>Next Question</button>
+            </div>
+        </section>
+
+        <!-- Results Container -->
+        <section class="results-container" id="resultsContainer">
+            <div class="results-header">
+                <h2 class="results-title">Your Pure Life Compass Results</h2>
+                <p class="results-subtitle">Congratulations on completing your assessment!</p>
+            </div>
+
+            <div class="score-display">
+                <div class="score-number" id="totalScore">0</div>
+                <div class="score-label">Total Score</div>
+            </div>
+
+            <div class="persona-result" id="personaResult">
+                <!-- Persona details will be populated dynamically -->
+            </div>
+
+            <div class="section-scores" id="sectionScores">
+                <!-- Section scores will be populated dynamically -->
+            </div>
+
+            <div class="cta-section" id="ctaSection">
+                <!-- CTA content will be populated based on persona -->
+            </div>
+
+            <!-- Social Sharing -->
+            <div class="social-sharing">
+                <h3 class="social-title">Share Your Results</h3>
+                <div class="social-buttons">
+                    <a href="#" class="social-btn facebook" id="facebookShare">
+                        📘 Share on Facebook
+                    </a>
+                    <a href="#" class="social-btn twitter" id="twitterShare">
+                        🐦 Share on Twitter
+                    </a>
+                    <a href="#" class="social-btn linkedin" id="linkedinShare">
+                        💼 Share on LinkedIn
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button class="btn btn-secondary" onclick="location.reload()">
+                    Take Quiz Again
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading/Error Messages -->
+        <div id="statusMessage" style="display: none;"></div>
+    </div>
+
+    <!-- Include Quiz Logic Scripts -->
+    <script src="quiz-data.js"></script>
+    <script src="quiz-logic.js"></script>
+    <script src="ghl-integration.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
